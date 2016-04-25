@@ -11,12 +11,14 @@ var touchPPT = function ( PPTarr ) {
     var W = window,
         D = document,
         self = this,
-        orderArr = [],//场景顺序及属性
-        nowPage = 0; //当前页数
+        orderArr = [],//场景组顺序及属性
+        nowPage = 0, //当前页数
+        actors = [];//演员组属性
 
     //初始化设备信息
     var DW = D.body.clientWidth,//设备可见宽度
         DH = D.body.clientHeight;//设备可见高度
+
     //选择节点
     this.dom = function ( _name ) {
 
@@ -148,16 +150,32 @@ var touchPPT = function ( PPTarr ) {
 
         arr.style.cssText = cssText;
     };
+
+    //场景animation css对象实例化
+    this.instantiationAnimation = function (arr) {
+
+        var cssText = '';
+
+        //[arr]将dom转换成对象进行操作
+        for ( var i in [arr][0].animationArr) {
+            cssText += i + ':' + [arr][0].animationArr[i] + ';'
+        }
+
+        arr.style.cssText = cssText;
+    };
     //场景顺序
     this.story = function () {
         var _i = 0;
-        for ( var scene in PPTarr ) {
+        for ( var _scene in PPTarr ) {
 
             //推入舞台数组
-            orderArr[_i] = self.dom(scene);
+            orderArr[_i] = self.dom(_scene);
 
             //舞台css对象化
             orderArr[_i].cssArr = {};
+
+            //新建该场景所需要的成员组
+            actors[_i] = [];
 
             //除第一个场景，其他场景隐藏
             if ( _i != 0 ) {
@@ -169,13 +187,70 @@ var touchPPT = function ( PPTarr ) {
             orderArr[_i].cssArr['top'] = '0';
             orderArr[_i].cssArr['left'] = '0';
             orderArr[_i].cssArr['z-index'] = 100 - _i;
+            orderArr[_i].cssArr['overflow'] = 'hidden';
 
             //将css数组实例化写入dom样式
             self.instantiationCss(orderArr[_i]);
 
+            //生产演员
+            for ( var _actor in PPTarr[_scene] ) {
+                self.makeActors( _actor, _i, _scene);
+            }
             _i++;
         }
+        console.log(actors);
+    };
 
+    //生产演员
+    this.makeActors = function ( _name , _scene , _father, type) {
+
+        var _actor = self.dom(_name);
+        type = type ? type : '';
+
+        //添加演员-克隆节点
+        var _newActorNode =_actor.cloneNode(true);
+
+        //克隆演员增加命名 命名规则：PPT#场景编号#演员编号
+        _newActorNode.className += ' PPT#'+ _scene + '#' + (actors[_scene].length);
+        self.dom( _father).appendChild( _newActorNode );
+
+        //将新演员推入演员组
+        actors[_scene].push( _newActorNode );
+
+        //绑定新演员css属性,并渲染到页面上
+        var _my = actors[_scene][actors[_scene].length - 1];
+        _my.cssArr = {};
+        _my.cssArr['position'] = 'absolute';
+        _my.cssArr['top'] = _actor.offsetTop + 'px';
+        _my.cssArr['left'] = _actor.offsetLeft + 'px';
+        _my.cssArr['animation'] = 'all 5s infinite';
+
+        //做动画数组根据动画类型，去定位现在初始位置
+        _my.animationArr = {};
+        type = '';
+
+        if( type.indexOf('top') != -1 ) {
+
+            //定位在顶部开始
+            _my.animationArr['top'] = '-' + _actor.offsetHeight + 'px';
+
+        } else if ( type.indexOf('bottom') != -1) {
+
+            //定位在底部
+            _my.animationArr['top'] = DH + _actor.offsetHeight + 'px';
+
+        } else {
+
+            //Y轴无定位
+            _my.animationArr['top'] = _my.cssArr['top']
+
+        }
+        _my.animationArr['position'] = 'absolute';
+        _my.animationArr['left'] = _my.cssArr['left'];
+        _my.animationArr['animation'] = _my.cssArr['animation'];
+        self.instantiationAnimation( _my );//实例化动画初始css
+        //隐藏原文档流的节点
+        _actor.style.cssText = _actor.style.cssText + 'visibility:hidden';
     };
 
     //初始化方法
