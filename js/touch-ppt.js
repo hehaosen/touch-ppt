@@ -13,7 +13,8 @@ var touchPPT = function ( PPTarr ) {
         self = this,
         orderArr = [],//场景组顺序及属性
         nowPage = 0, //当前页数
-        actors = [];//演员组属性
+        actors = [],//演员组属性
+        film = {};//动画顺序
 
     //初始化设备信息
     var DW = D.body.clientWidth,//设备可见宽度
@@ -106,6 +107,10 @@ var touchPPT = function ( PPTarr ) {
             //展现新的页面
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
             self.instantiationCss(orderArr[nowPage]);
+
+            //重置时间轴
+            timer = 0;
+
         } else{
 
             //回到原来的状态
@@ -130,6 +135,10 @@ var touchPPT = function ( PPTarr ) {
             //展现新的页面
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
             self.instantiationCss(orderArr[nowPage]);
+
+            //重置时间轴
+            timer = 0;
+
         } else {
 
             //回到原来的状态
@@ -194,18 +203,20 @@ var touchPPT = function ( PPTarr ) {
 
             //生产演员
             for ( var _actor in PPTarr[_scene] ) {
-                self.makeActors( _actor, _i, _scene);
+                self.makeActors( _actor, _i, _scene, PPTarr[_scene][_actor].type, PPTarr[_scene][_actor].speed, PPTarr[_scene][_actor].route);
             }
             _i++;
         }
-        console.log(actors);
+        console.log(film);
     };
 
     //生产演员
-    this.makeActors = function ( _name , _scene , _father, type) {
+    this.makeActors = function ( _name , _scene , _father, _type, _speed, _route) {
 
         var _actor = self.dom(_name);
-        type = type ? type : '';
+        _type = _type ? _type : '';
+        _speed = typeof _speed  === 'number' ? _speed : 1000;
+        _route = _route ? _route : 0;
 
         //添加演员-克隆节点
         var _newActorNode =_actor.cloneNode(true);
@@ -213,6 +224,11 @@ var touchPPT = function ( PPTarr ) {
         //克隆演员增加命名 命名规则：PPT#场景编号#演员编号
         _newActorNode.className += ' PPT#'+ _scene + '#' + (actors[_scene].length);
         self.dom( _father).appendChild( _newActorNode );
+
+        //演员演出时间生成
+        film[_scene] = film[_scene] ? film[_scene] : {};
+        film[_scene][_route]  = film[_scene][_route] ? film[_scene][_route] : [];
+        film[_scene][_route].push(actors[_scene].length);
 
         //将新演员推入演员组
         actors[_scene].push( _newActorNode );
@@ -223,18 +239,18 @@ var touchPPT = function ( PPTarr ) {
         _my.cssArr['position'] = 'absolute';
         _my.cssArr['top'] = _actor.offsetTop + 'px';
         _my.cssArr['left'] = _actor.offsetLeft + 'px';
-        _my.cssArr['animation'] = 'all 5s infinite';
+        _my.cssArr['transition'] = 'all ' + (_speed/1000) + 's ease';
 
         //做动画数组根据动画类型，去定位现在初始位置
         _my.animationArr = {};
-        type = '';
 
-        if( type.indexOf('top') != -1 ) {
+        //Y轴定位方式
+        if( _type.indexOf('top') != -1 ) {
 
             //定位在顶部开始
             _my.animationArr['top'] = '-' + _actor.offsetHeight + 'px';
 
-        } else if ( type.indexOf('bottom') != -1) {
+        } else if ( _type.indexOf('bottom') != -1) {
 
             //定位在底部
             _my.animationArr['top'] = DH + _actor.offsetHeight + 'px';
@@ -245,16 +261,63 @@ var touchPPT = function ( PPTarr ) {
             _my.animationArr['top'] = _my.cssArr['top']
 
         }
+
+        //X轴定位方式
+        if( _type.indexOf('left') != -1 ) {
+
+            //定位在左边开始
+            _my.animationArr['left'] = '-' + _actor.offsetWidth + 'px';
+
+        } else if( _type.indexOf('right') != -1 ) {
+
+            //定位在右边开始
+            _my.animationArr['left'] = DW + _actor.offsetWidth + 'px';
+
+        } else {
+
+            //X轴无定位
+            _my.animationArr['left'] = _my.cssArr['left'];
+
+        }
+
+        /*--------------特效组------------------------*/
+
+        //从透明渐变
+        if( _type.indexOf('hiding') != -1) {
+            _my.animationArr['filter'] = 'alpha(opacity=0)';
+            _my.animationArr['-moz-opacity'] = '0';
+            _my.animationArr['opacity'] = '0';
+        }
+
+        /*---------------------------------------------*/
         _my.animationArr['position'] = 'absolute';
-        _my.animationArr['left'] = _my.cssArr['left'];
-        _my.animationArr['animation'] = _my.cssArr['animation'];
+        _my.animationArr['transition'] = _my.cssArr['transition'];
         self.instantiationAnimation( _my );//实例化动画初始css
+        
         //隐藏原文档流的节点
         _actor.style.cssText = _actor.style.cssText + 'visibility:hidden';
+    };
+
+    //开始主进程
+    var timer = 0;//时间轴
+    this.play = function () {
+
+        function main () {
+            return function () {
+                if (film[nowPage][timer] != 'undefined') {
+                    for (var i in film[nowPage][timer]) {
+                        self.instantiationCss(actors[nowPage][film[nowPage][timer][i]]);
+                    }
+                }
+                timer++;
+            }
+        }
+        setInterval(main(), 100);//0.1秒触发一次
     };
 
     //初始化方法
     this.touchListener();//监听滑动
     this.initializeCss();//初始化css
     this.story();//出场顺序初始化
+    this.play();
 };
