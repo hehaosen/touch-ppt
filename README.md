@@ -30,13 +30,17 @@ touchPPT = new touchPPT({
 
 #type动效说明
 
-动画效果可以叠加用【空格】分割  例:bottom left  右下角飞入  top hiding 从上渐出</br></br>
+动画效果可以叠加用【空格】分割  例:bottom left  右下角飞入  top hiding 从上渐入</br></br>
 
 所有动效:
 ```bash
-top:从屏幕上部飞入
-left:从屏幕左边飞入
-right:从屏幕右边飞入
-bottom:从屏幕下方飞入
-hiding:渐出
+join-top:从屏幕上部飞入
+join-left:从屏幕左边飞入
+join-right:从屏幕右边飞入
+join-bottom:从屏幕下方飞入
+out-top:向屏幕上部飞出
+out-left:向屏幕左边飞出
+out-right:向屏幕右边飞出
+out-bottom:向屏幕下方飞出
+hiding:渐入
 ```

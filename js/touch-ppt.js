@@ -224,6 +224,9 @@ var touchPPT = function ( PPTarr ) {
         _newActorNode.className += ' PPT#'+ _scene + '#' + (actors[_scene].length);
         self.dom( _father).appendChild( _newActorNode );
 
+        //更改原有dom的id以防止冲突
+        _actor.id = 'old_' + _actor.id;
+
         //演员演出时间生成
         film[_scene] = film[_scene] ? film[_scene] : {};
         film[_scene][_route]  = film[_scene][_route] ? film[_scene][_route] : [];
@@ -243,16 +246,29 @@ var touchPPT = function ( PPTarr ) {
         //做动画数组根据动画类型，去定位现在初始位置
         _my.animationArr = {};
 
+
         //Y轴定位方式
-        if( _type.indexOf('top') != -1 ) {
+        if( _type.indexOf('join-top') != -1 ) {
 
             //定位在顶部开始
             _my.animationArr['top'] = '-' + _actor.offsetHeight + 'px';
 
-        } else if ( _type.indexOf('bottom') != -1) {
+        } else if ( _type.indexOf('join-bottom') != -1) {
 
             //定位在底部
             _my.animationArr['top'] = DH + _actor.offsetHeight + 'px';
+
+        } else if( _type.indexOf('out-top') != -1) {
+
+            //向顶部离开
+            _my.animationArr['top'] = _my.cssArr['top'];
+            _my.cssArr['top'] = '-' + _actor.offsetHeight + 'px';
+
+        }else if( _type.indexOf('out-bottom') != -1 ){
+
+            //向底部部离开
+            _my.animationArr['top'] = _my.cssArr['top'];
+            _my.cssArr['top'] = DH + _actor.offsetHeight + 'px';
 
         } else {
 
@@ -272,12 +288,26 @@ var touchPPT = function ( PPTarr ) {
             //定位在右边开始
             _my.animationArr['left'] = DW + _actor.offsetWidth + 'px';
 
+        } else if( _type.indexOf('out-left') != -1 ) {
+
+            //向左边离开
+            _my.animationArr['left'] = _my.cssArr['left'];
+            _my.cssArr['left'] = '-' + _actor.offsetWidth + 'px';
+
+        } else if ( _type.indexOf('out-right') != -1 ) {
+
+            //向右边离开
+            _my.animationArr['left'] = _my.cssArr['left'];
+            _my.cssArr['left'] = DW + _actor.offsetWidth + 'px';
+
         } else {
 
             //X轴无定位
             _my.animationArr['left'] = _my.cssArr['left'];
 
         }
+
+
 
         /*--------------特效组------------------------*/
 
@@ -288,12 +318,13 @@ var touchPPT = function ( PPTarr ) {
             _my.animationArr['opacity'] = '0';
         }
 
-        /*---------------------------------------------*/
+        /*---------------特效组end------------------------*/
         _my.animationArr['position'] = 'absolute';
         self.instantiationAnimation( _my );//实例化动画初始css
 
         //隐藏原文档流的节点
-        _actor.style.cssText = _actor.style.cssText + 'visibility:hidden';
+        _actor.style.cssText = _actor.style.cssText + 'visibility:hidden; width:' + _actor.offsetWidth + 'px; height:' + _actor.offsetHeight + 'px';
+        _actor.innerHTML = '';
     };
 
     //开始主进程
