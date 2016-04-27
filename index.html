@@ -37,6 +37,11 @@
             height: 100vh;
             background-color: blue;
         }
+        .p2_no1{
+            width: 300px;
+            height: 200px;
+            background-color: red;
+        }
     </style>
     <script src="js/touch-ppt.js"></script>
 
@@ -48,20 +53,35 @@
         <div class="no3"></div>
     </div>
     <div class="page2">
-
+        <div class="p2_no1"></div>
     </div>
 </body>
 <script>
     var touchPPT = new touchPPT({
         '.page1':{
             '.no1':{
-                type:'top flash bottom',
-                speed: 0.5
+                type:'top',
+                speed: 2000,
+                route: 10
             },
-            '.no2':{},
-            '.no3':{}
+            '.no2':{
+                type:'bottom',
+                speed:2000,
+                route: 20
+            },
+            '.no3':{
+                type:'bottom',
+                speed:2000,
+                route: 20
+            }
         },
-        '.page2':{}
+        '.page2':{
+            '.p2_no1':{
+                type:'right hiding',
+                speed:2000,
+                route:10
+            }
+        }
     });
 
 </script>
