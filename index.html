@@ -17,6 +17,8 @@
             height: 200px;
             background-color: #B4D9E7;
             float: left;
+            position: relative;
+            top:200px
         }
         .page1 .no2 {
             width: 200px;
@@ -48,7 +50,7 @@
 </head>
 <body>
     <div class="page1">
-        <div class="no1" ></div>
+        <div class="no1" id="ooo" ><div id = "test"></div></div>
         <div class="no2"></div>
         <div class="no3"></div>
     </div>
@@ -60,9 +62,9 @@
     var touchPPT = new touchPPT({
         '.page1':{
             '.no1':{
-                type:'top',
+                type:'out-top',
                 speed: 2000,
-                route: 10
+                route: 30
             },
             '.no2':{
                 type:'hiding',
@@ -70,7 +72,7 @@
                 route:30
             },
             '.no3':{
-                type:'bottom',
+                type:'join-bottom',
                 speed:1000
             }
         },
