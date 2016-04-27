@@ -207,7 +207,6 @@ var touchPPT = function ( PPTarr ) {
             }
             _i++;
         }
-        console.log(film);
     };
 
     //生产演员
@@ -291,9 +290,8 @@ var touchPPT = function ( PPTarr ) {
 
         /*---------------------------------------------*/
         _my.animationArr['position'] = 'absolute';
-        _my.animationArr['transition'] = _my.cssArr['transition'];
         self.instantiationAnimation( _my );//实例化动画初始css
-        
+
         //隐藏原文档流的节点
         _actor.style.cssText = _actor.style.cssText + 'visibility:hidden';
     };
