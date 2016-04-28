@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Monster Wants Candy demo</title>
+    <title>touch-ppt</title>
     <style>
         body {
             margin: 0; background: #B4D9E7; height: 100vh
@@ -51,39 +51,40 @@
 <body>
     <div class="page1">
         <div class="no1" id="ooo" ><div id = "test"></div></div>
-        <div class="no2"></div>
-        <div class="no3"></div>
+        <div class="no2" id="oo"></div>
+        <div class="no3" id="o"></div>
     </div>
     <div class="page2">
         <div class="p2_no1"></div>
     </div>
 </body>
 <script>
-    var touchPPT = new touchPPT({
-        '.page1':{
-            '.no1':{
-                type:'out-top',
-                speed: 2000,
-                route: 30
+    window.onload = function () {
+        var newppt = new touchPPT({
+            '.page1':{
+                '.no1':{
+                    type:'out-top',
+                    speed: 2000,
+                    route: 30
+                },
+                '.no2':{
+                    type:'out-left out-hiding',
+                    speed: 1000,
+                    route:30
+                },
+                '.no3':{
+                    type:'join-bottom',
+                    speed:1000
+                }
             },
-            '.no2':{
-                type:'hiding',
-                speed: 1000,
-                route:30
-            },
-            '.no3':{
-                type:'join-bottom',
-                speed:1000
+            '.page2':{
+                '.p2_no1':{
+                    type:'right hiding',
+                    speed:2000,
+                    route:10
+                }
             }
-        },
-        '.page2':{
-            '.p2_no1':{
-                type:'right hiding',
-                speed:2000,
-                route:10
-            }
-        }
-    });
-
+        });
+    };
 </script>
 </html>
