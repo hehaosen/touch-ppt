@@ -58,8 +58,18 @@ var touchPPT = function ( PPTarr ) {
         D.getElementsByTagName('body')[0].addEventListener('touchmove',function ( e ) {
 
             e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+            if( nowPage == 0 ) {
+                if( (e.touches[0].clientY - _y) < 0) {
+                    [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                }
+            } else if ( nowPage == (orderArr.length - 1) ) {
+                if( ( _y - e.touches[0].clientY) < 0 ) {
+                    [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                }
+            } else {
+                [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
 
-            [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+            }
 
             self.instantiationCss(orderArr[nowPage]);
         });
@@ -325,6 +335,7 @@ var touchPPT = function ( PPTarr ) {
             _my.cssArr['opacity'] = '0';
         }
         /*---------------特效组end------------------------*/
+
         _my.animationArr['position'] = 'absolute';
         self.instantiationAnimation( _my );//实例化动画初始css
 

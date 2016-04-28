@@ -2,87 +2,48 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>touch-ppt</title>
-    <style>
-        body {
-            margin: 0; background: #B4D9E7; height: 100vh
-        }
-        .page1{
-            width: 100%;
-            height: 100vh;
-            background-color: red;
-        }
-        .page1 .no1 {
-            width: 200px;
-            height: 200px;
-            background-color: #B4D9E7;
-            float: left;
-            position: relative;
-            top:200px
-        }
-        .page1 .no2 {
-            width: 200px;
-            height: 200px;
-            background-color: rebeccapurple;
-            float: left;
-
-        }
-        .page1 .no3 {
-            width: 200px;
-            height: 200px;
-            background-color: aqua;
-            float: left;
-
-        }
-        .page2{
-            width: 100%;
-            height: 100vh;
-            background-color: blue;
-        }
-        .p2_no1{
-            width: 300px;
-            height: 200px;
-            background-color: red;
-        }
-    </style>
-    <script src="js/touch-ppt.js"></script>
-
+    <title>Demo</title>
 </head>
+<link href="css/index.css" rel="stylesheet" type="text/css">
 <body>
     <div class="page1">
-        <div class="no1" id="ooo" ><div id = "test"></div></div>
-        <div class="no2" id="oo"></div>
-        <div class="no3" id="o"></div>
+        <b class="balloon"></b>
+        <b class="cloud_s"></b>
+        <b class="cloud_m"></b>
+        <b class="cloud_b"></b>
+        <div class="water"></div>
+        <div class="p1_car"></div>
+        <div class="p1_title"></div>
     </div>
     <div class="page2">
-        <div class="p2_no1"></div>
+        <div class="board"></div>
     </div>
 </body>
+<script src="js/touch-ppt.js"></script>
+
 <script>
     window.onload = function () {
         var newppt = new touchPPT({
             '.page1':{
-                '.no1':{
-                    type:'out-top',
-                    speed: 2000,
-                    route: 30
-                },
-                '.no2':{
-                    type:'out-left out-hiding',
+                '.water': {
+
+                    type:'join-hiding',
                     speed: 1000,
-                    route:30
+                    route: 10
                 },
-                '.no3':{
-                    type:'join-bottom',
-                    speed:1000
+                '.p1_title': {
+                    type: 'join-hiding',
+                    speed: 1000,
+                    route: 15
+                },
+                '.p1_car': {
+                    type: 'join-hiding',
+                    speed: 1500
                 }
+
             },
             '.page2':{
-                '.p2_no1':{
-                    type:'right hiding',
-                    speed:2000,
-                    route:10
-                }
+
             }
         });
     };
