@@ -278,12 +278,12 @@ var touchPPT = function ( PPTarr ) {
         }
 
         //X轴定位方式
-        if( _type.indexOf('left') != -1 ) {
+        if( _type.indexOf('join-left') != -1 ) {
 
             //定位在左边开始
             _my.animationArr['left'] = '-' + _actor.offsetWidth + 'px';
 
-        } else if( _type.indexOf('right') != -1 ) {
+        } else if( _type.indexOf('join-right') != -1 ) {
 
             //定位在右边开始
             _my.animationArr['left'] = DW + _actor.offsetWidth + 'px';
@@ -311,13 +311,19 @@ var touchPPT = function ( PPTarr ) {
 
         /*--------------特效组------------------------*/
 
-        //从透明渐变
-        if( _type.indexOf('hiding') != -1) {
+        //渐入
+        if ( _type.indexOf('join-hiding') != -1) {
             _my.animationArr['filter'] = 'alpha(opacity=0)';
             _my.animationArr['-moz-opacity'] = '0';
             _my.animationArr['opacity'] = '0';
         }
 
+        //渐出
+        if ( _type.indexOf('out-hiding') != -1) {
+            _my.cssArr['filter'] = 'alpha(opacity=0)';
+            _my.cssArr['-moz-opacity'] = '0';
+            _my.cssArr['opacity'] = '0';
+        }
         /*---------------特效组end------------------------*/
         _my.animationArr['position'] = 'absolute';
         self.instantiationAnimation( _my );//实例化动画初始css
