@@ -125,3 +125,49 @@ body {
   -webkit-border-radius: 5vh;
   border-radius: 5vh;
 }
+.page2 .board .a1 {
+  width: 200px;
+  height: 200px;
+  background-color: rebeccapurple;
+}
+.page2 .p2_title {
+  width: 90.8%;
+  padding-top: 10.8%;
+  background: url("../images/p2_title.png") no-repeat;
+  background-size: cover;
+  position: fixed;
+  left: 50%;
+  margin-left: -45.4%;
+  top: 10%;
+}
+.page2 .p2_info1,
+.page2 .p2_info2,
+.page2 .p2_info3 {
+  width: 78.8%;
+  padding-top: 27.3%;
+  position: fixed;
+  left: 50%;
+  margin-left: -39.4%;
+}
+.page2 .p2_info1 {
+  background: url("../images/p2_info1.png") no-repeat;
+  background-size: cover;
+  top: 20%;
+}
+.page2 .p2_info2 {
+  background: url("../images/p2_info2.png") no-repeat;
+  background-size: cover;
+  top: 45%;
+}
+.page2 .p2_info3 {
+  background: url("../images/p2_info3.png") no-repeat;
+  background-size: cover;
+  top: 70%;
+}
+.page3 {
+  width: 100%;
+  height: 100vh;
+  background: url("../images/p3_bg.png") no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}

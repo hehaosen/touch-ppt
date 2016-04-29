@@ -23,15 +23,7 @@ var touchPPT = function ( PPTarr ) {
     //选择节点
     this.dom = function ( _name ) {
 
-        //返回id节点
-        if ( _name.indexOf('#') == 0 ) {
-            return D.getElementById( _name.substr(1) );
-        }
-
-        //返回class节点
-        if ( _name.indexOf('.') == 0 ) {
-            return D.getElementsByClassName( _name.substr(1) )[0];
-        }
+        return D.querySelector( _name );
     };
 
     //初始化我们需要的Css
@@ -108,6 +100,7 @@ var touchPPT = function ( PPTarr ) {
         if ( nowPage > 0 ){
 
             //当前页面隐藏
+            [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             self.instantiationCss(orderArr[nowPage]);
@@ -115,6 +108,7 @@ var touchPPT = function ( PPTarr ) {
             nowPage--;
 
             //展现新的页面
+            [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
             self.instantiationCss(orderArr[nowPage]);
 
@@ -135,14 +129,15 @@ var touchPPT = function ( PPTarr ) {
 
         //判断是否到达最大页数
         if ( nowPage != (orderArr.length - 1) ){
-
             //当前页面隐藏
+            [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             self.instantiationCss(orderArr[nowPage]);
             nowPage++;
 
-            //展现新的页面
+            //展现新的页面.
+            [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
             self.instantiationCss(orderArr[nowPage]);
 
@@ -198,7 +193,7 @@ var touchPPT = function ( PPTarr ) {
 
             //除第一个场景，其他场景隐藏
             if ( _i != 0 ) {
-                orderArr[_i].cssArr['display'] = 'none';
+                orderArr[_i].cssArr['visibility'] = 'hidden';
             }
 
             //写入初始化css
@@ -211,10 +206,14 @@ var touchPPT = function ( PPTarr ) {
             //将css数组实例化写入dom样式
             self.instantiationCss(orderArr[_i]);
 
+            //生产场景演出表
+            film[_i] = {};
+
             //生产演员
             for ( var _actor in PPTarr[_scene] ) {
                 self.makeActors( _actor, _i, _scene, PPTarr[_scene][_actor].type, PPTarr[_scene][_actor].speed, PPTarr[_scene][_actor].route);
             }
+
             _i++;
         }
     };
@@ -252,10 +251,11 @@ var touchPPT = function ( PPTarr ) {
         _my.cssArr['top'] = _actor.offsetTop + 'px';
         _my.cssArr['left'] = _actor.offsetLeft + 'px';
         _my.cssArr['transition'] = 'all ' + (_speed/1000) + 's ease';
+        _my.cssArr['margin'] = '0';
 
         //做动画数组根据动画类型，去定位现在初始位置
         _my.animationArr = {};
-
+        _my.animationArr['margin'] = '0';
 
         //Y轴定位方式
         if( _type.indexOf('join-top') != -1 ) {
@@ -337,6 +337,7 @@ var touchPPT = function ( PPTarr ) {
         /*---------------特效组end------------------------*/
 
         _my.animationArr['position'] = 'absolute';
+
         self.instantiationAnimation( _my );//实例化动画初始css
 
         //隐藏原文档流的节点
@@ -349,8 +350,10 @@ var touchPPT = function ( PPTarr ) {
     this.play = function () {
 
         function main () {
+
             return function () {
-                if (film[nowPage][timer] != 'undefined') {
+
+                if ( film[nowPage][timer] != 'undefined' ) {
                     for (var i in film[nowPage][timer]) {
                         self.instantiationCss(actors[nowPage][film[nowPage][timer][i]]);
                     }

@@ -16,7 +16,15 @@
         <div class="p1_title"></div>
     </div>
     <div class="page2">
-        <div class="board"></div>
+        <div class="board">
+        </div>
+        <div class="p2_title"></div>
+        <div class="p2_info1"></div>
+        <div class="p2_info2"></div>
+        <div class="p2_info3"></div>
+    </div>
+    <div class="page3">
+
     </div>
 </body>
 <script src="js/touch-ppt.js"></script>
@@ -26,23 +34,44 @@
         var newppt = new touchPPT({
             '.page1':{
                 '.water': {
-
                     type:'join-hiding',
-                    speed: 1000,
+                    speed: 6000,
                     route: 10
                 },
                 '.p1_title': {
                     type: 'join-hiding',
-                    speed: 1000,
-                    route: 15
+                    speed: 6000,
+                    route: 45
                 },
                 '.p1_car': {
                     type: 'join-hiding',
-                    speed: 1500
+                    speed: 6500
                 }
 
             },
             '.page2':{
+                '.p2_title': {
+                    type: 'join-hiding join-top',
+                    speed: 2000,
+                    route: 5
+                },
+                '.p2_info1': {
+                    type: 'join-hiding',
+                    speed: 2000,
+                    route: 15
+                },
+                '.p2_info2': {
+                    type: 'join-hiding',
+                    speed: 2000,
+                    route: 25
+                },
+                '.p2_info3': {
+                    type: 'join-hiding',
+                    speed: 2000,
+                    route: 35
+                }
+            },
+            '.page3': {
 
             }
         });
