@@ -1,0 +1,164 @@
+body {
+  margin: 0; background: #9cd2b3; height: 100vh
+}
+.page1{
+  width: 100%;
+  height: 100vh;
+  background: url("../images/page1_bg.jpg") no-repeat 100%;
+  background-size: cover;
+  overflow: hidden;
+
+  .cloud_b,.cloud_m,.cloud_s{
+    background: url("../images/cloud.png") no-repeat;
+    background-size: cover;
+    display: block;
+    position: absolute;
+  }
+
+  .cloud_s {
+    width: 10.4%;
+    padding-top: 6.4%;
+    top:40%;
+    left: -10.4%;
+    animation:cloud-s-move 30s linear infinite alternate;
+    -webkit-animation:cloud-s-move 30s linear infinite alternate;
+  }
+
+  .cloud_m {
+    width: 20.8%;
+    padding-top: 12.8%;
+    top:1%;
+    animation:cloud-m-move 20s linear infinite alternate;
+    -webkit-animation:cloud-m-move 20s linear infinite alternate;
+  }
+
+  .cloud_b {
+    width: 31.2%;
+    padding-top: 19.2%;
+    left: 80%;
+    top:8%;
+    animation:cloud-b-move 10s linear infinite alternate;
+    -webkit-animation:cloud-b-move 10s linear infinite alternate;
+  }
+
+  .water{
+    width: 91.8%;
+    padding-top: 54.6%;
+    background: url("../images/water.png") no-repeat;
+    background-size: cover;
+    position: absolute;
+    top:0;
+    left: 4%;
+  }
+
+  .p1_title{
+    width: 52.1%;
+    padding-top: 31.5%;
+    background: url("../images/p1_title.png") no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 7%;
+    left: 15%;
+  }
+
+  .balloon{
+    width: 14.4%;
+    padding-top: 45.3%;
+    background: url("../images/p1_balloon.png") no-repeat;
+    background-size: cover;
+    animation:balloon-move 2s ease-in-out infinite alternate;
+    position: absolute;
+    bottom: 20%;
+    right: 16.3%;
+    display: block;
+  }
+
+  .p1_car {
+    width: 76%;
+    padding-top: 74.8%;
+    background: url("../images/p1_car.png") no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left: 0;
+  }
+}
+
+@keyframes balloon-move{
+  from {bottom: 30%}
+  to { bottom: 27%}
+}
+@keyframes cloud-s-move{
+  from {left: -10.4%}
+  to { left: 100%}
+}
+
+@keyframes cloud-m-move{
+  from {left: -20.8%}
+  to { left: 100%}
+}
+
+@keyframes cloud-b-move{
+  from {left: 100%}
+  to { left: -31.2%}
+}
+.page2{
+  width: 100%;
+  height: 100vh;
+  background-color: #9cd2b3;
+  .board{
+    width: 81.9%;
+    height: 90vh;
+    background-color: #eff2e0;
+    margin: 5vh auto;
+    -moz-border-radius: 5vh;
+    -webkit-border-radius: 5vh;
+    border-radius:5vh;
+    .a1{
+      width: 200px;
+      height:200px;
+      background-color: rebeccapurple;
+    }
+  }
+  .p2_title{
+    width: 90.8%;
+    padding-top: 10.8%;
+    background: url("../images/p2_title.png") no-repeat;
+    background-size: cover;
+    position: fixed;
+    left:50%;
+    margin-left: -45.4%;
+    top:10%;
+  }
+  .p2_info1,.p2_info2,.p2_info3{
+    width: 78.8%;
+    padding-top: 27.3%;
+    position: fixed;
+    left:50%;
+    margin-left: -39.4%;
+  }
+  .p2_info1{
+    background: url("../images/p2_info1.png") no-repeat;
+    background-size: cover;
+    top:20%;
+  }
+
+  .p2_info2{
+    background: url("../images/p2_info2.png") no-repeat;
+    background-size: cover;
+    top:45%;
+  }
+
+  .p2_info3{
+    background: url("../images/p2_info3.png") no-repeat;
+    background-size: cover;
+    top:70%;
+  }
+}
+.page3{
+  width: 100%;
+  height: 100vh;
+  background: url("../images/p3_bg.png") no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
