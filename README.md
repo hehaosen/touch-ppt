@@ -1,6 +1,11 @@
 # touch-ppt
 一款无任何依赖的移动端ppt框架
-
+#安装
+1.你可以直接 <a href="https://github.com/hehaosen/touch-ppt/archive/master.zip">点击下载</a></br>
+2.可以用npm下载
+```bash
+$npm install touch-ppt
+```
 #如何使用?
 
 
