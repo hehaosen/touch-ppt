@@ -1,0 +1,26 @@
+{
+  "name": "touch-ppt",
+  "version": "1.0.1",
+  "description": "一款无任何依赖的移动端ppt框架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hehaosen/touch-ppt.git"
+  },
+  "keywords": [
+    "dalishen"
+  ],
+  "author": "Tom-dalishen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hehaosen/touch-ppt/issues"
+  },
+  "homepage": "https://github.com/hehaosen/touch-ppt#readme",
+  "dependencies": {
+    "shelljs": "^0.7.0",
+    "yargs": "^4.6.0"
+  }
+}
