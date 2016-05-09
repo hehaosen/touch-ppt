@@ -5,7 +5,7 @@
  * http://www.github.com/hehaosen
  */
 "use strict";
-var touchPPT = function ( PPTarr ) {
+var touchPPT = function ( PPTarr ,isVertical) {
 
     //初始化变量
     var W = window,
@@ -16,6 +16,7 @@ var touchPPT = function ( PPTarr ) {
         actors = [],//演员组属性
         film = {};//动画顺序
 
+    isVertical  = isVertical ? true : false ;//是否是垂直滑动播放的
     //初始化设备信息
     var DW,//设备可见宽度
         DH;//设备可见高度
@@ -49,50 +50,99 @@ var touchPPT = function ( PPTarr ) {
         D.getElementsByTagName('body')[0].addEventListener('touchmove',function ( e ) {
 
             e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
-            if( nowPage == 0 ) {
+            if ( isVertical ) {//是否是垂直播放
+                if( nowPage == 0 ) {
 
-                //当第一页时只允许下一页
-                if( (e.touches[0].clientY - _y) < 0) {
+                    //当第一页时只允许下一页
+                    if( (e.touches[0].clientY - _y) < 0) {
+                        [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+
+                        //下一个场景的切换时的状态
+                        [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
+                        [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
+                        [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                        self.instantiationCss(orderArr[nowPage + 1]);
+                    }
+                } else if ( nowPage == (orderArr.length - 1) ) {
+
+                    //当最后一页时只允许上一页
+                    if( ( _y - e.touches[0].clientY) < 0 ) {
+                        [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                        //上一个场景的切换时的状态
+                        [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
+                        [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
+                        [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                        self.instantiationCss(orderArr[nowPage - 1]);
+
+                    }
+                } else {
+
                     [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
 
                     //下一个场景的切换时的状态
                     [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
                     [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
-                    self.instantiationCss(orderArr[nowPage + 1]);
-                }
-            } else if ( nowPage == (orderArr.length - 1) ) {
 
-                //当最后一页时只允许上一页
-                if( ( _y - e.touches[0].clientY) < 0 ) {
-                    [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+
                     //上一个场景的切换时的状态
                     [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
                     [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+
+                    self.instantiationCss(orderArr[nowPage + 1]);
                     self.instantiationCss(orderArr[nowPage - 1]);
-
                 }
+
+                self.instantiationCss(orderArr[nowPage]);
             } else {
+                //横向播放
+                if( nowPage == 0 ) {
 
-                [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                    //当第一页时只允许下一页
+                    if( (e.touches[0].clientX - _x) < 0) {
+                        [orderArr[nowPage]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + 'px';
 
-                //下一个场景的切换时的状态
-                [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
-                [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
-                [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                        //下一个场景的切换时的状态
+                        [orderArr[nowPage + 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + DW + 'px';
+                        [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
+                        [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                        self.instantiationCss(orderArr[nowPage + 1]);
+                    }
+                } else if ( nowPage == (orderArr.length - 1) ) {
+
+                    //当最后一页时只允许上一页
+                    if( ( _x - e.touches[0].clientX) < 0 ) {
+                        [orderArr[nowPage]][0].cssArr['left'] = -(_y - e.touches[0].clientX) + 'px';
+                        //上一个场景的切换时的状态
+                        [orderArr[nowPage - 1]][0].cssArr['left'] = -(_y - e.touches[0].clientX) - DW + 'px';
+                        [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
+                        [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                        self.instantiationCss(orderArr[nowPage - 1]);
+
+                    }
+                } else {
+
+                    [orderArr[nowPage]][0].cssArr['left'] = -(_y - e.touches[0].clientX) + 'px';
+
+                    //下一个场景的切换时的状态
+                    [orderArr[nowPage + 1]][0].cssArr['left'] = -(_y - e.touches[0].clientX) + DW + 'px';
+                    [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
+                    [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
 
 
-                //上一个场景的切换时的状态
-                [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
-                [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
-                [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                    //上一个场景的切换时的状态
+                    [orderArr[nowPage - 1]][0].cssArr['left'] = -(_y - e.touches[0].clientX) - DW + 'px';
+                    [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
+                    [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
 
-                self.instantiationCss(orderArr[nowPage + 1]);
-                self.instantiationCss(orderArr[nowPage - 1]);
+                    self.instantiationCss(orderArr[nowPage + 1]);
+                    self.instantiationCss(orderArr[nowPage - 1]);
+                }
+
+                self.instantiationCss(orderArr[nowPage]);
             }
 
-            self.instantiationCss(orderArr[nowPage]);
 
         });
 
@@ -100,36 +150,70 @@ var touchPPT = function ( PPTarr ) {
         D.getElementsByTagName('body')[0].addEventListener('touchend',function ( e ) {
 
             e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+            if ( isVertical ) {//垂直播放
+                //判断是否是上划还是下划，并触发上一页、下一页时间
+                if ( _y - e.changedTouches[0].clientY >= DH / 3 ) {
 
-            //判断是否是上划还是下划，并触发上一页、下一页时间
-            if ( _y - e.changedTouches[0].clientY >= DH / 3 ) {
+                    //下一页
+                    self.nextPage();
 
-                //下一页
-                self.nextPage();
+                } else if (_y - e.changedTouches[0].clientY < - DH / 3 ) {
 
-            } else if (_y - e.changedTouches[0].clientY < - DH / 3 ) {
+                    //上一页
+                    self.previousPage();
 
-                //上一页
-                self.previousPage();
+                } else{
 
-            } else{
+                    //没有切换页面
+                    [orderArr[nowPage]][0].cssArr['top'] = '0';
+                    if( nowPage != 0 ) {
+                        [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'hidden';
+                        [orderArr[nowPage - 1]][0].cssArr['display'] = 'none';
+                        self.instantiationCss(orderArr[nowPage - 1]);
 
-                //没有切换页面
-                [orderArr[nowPage]][0].cssArr['top'] = '0';
-                if( nowPage != 0 ) {
-                    [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'hidden';
-                    [orderArr[nowPage - 1]][0].cssArr['display'] = 'none';
-                    self.instantiationCss(orderArr[nowPage - 1]);
+                    }
 
+                    if ( nowPage != (orderArr.length - 1) ) {
+                        [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'hidden';
+                        [orderArr[nowPage + 1]][0].cssArr['display'] = 'none';
+                        self.instantiationCss(orderArr[nowPage + 1]);
+                    }
+                    self.instantiationCss(orderArr[nowPage]);
                 }
+            } else {//横向播放
 
-                if ( nowPage != (orderArr.length - 1) ) {
-                    [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'hidden';
-                    [orderArr[nowPage + 1]][0].cssArr['display'] = 'none';
-                    self.instantiationCss(orderArr[nowPage + 1]);
+
+                //判断是否是上划还是下划，并触发上一页、下一页时间
+                if ( _x - e.changedTouches[0].clientX >= DW / 3 ) {
+
+                    //下一页
+                    self.nextPage();
+
+                } else if (_x - e.changedTouches[0].clientX < - DW / 3 ) {
+
+                    //上一页
+                    self.previousPage();
+
+                } else{
+
+                    //没有切换页面
+                    [orderArr[nowPage]][0].cssArr['left'] = '0';
+                    if( nowPage != 0 ) {
+                        [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'hidden';
+                        [orderArr[nowPage - 1]][0].cssArr['display'] = 'none';
+                        self.instantiationCss(orderArr[nowPage - 1]);
+
+                    }
+
+                    if ( nowPage != (orderArr.length - 1) ) {
+                        [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'hidden';
+                        [orderArr[nowPage + 1]][0].cssArr['display'] = 'none';
+                        self.instantiationCss(orderArr[nowPage + 1]);
+                    }
+                    self.instantiationCss(orderArr[nowPage]);
                 }
-                self.instantiationCss(orderArr[nowPage]);
             }
+
         });
     };
 
@@ -146,12 +230,14 @@ var touchPPT = function ( PPTarr ) {
             //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
+            [orderArr[nowPage]][0].cssArr['left'] = '0';
             self.instantiationCss(orderArr[nowPage]);
 
             nowPage--;
 
             //展现新的页面
             [orderArr[nowPage]][0].cssArr['top'] = '0';
+            [orderArr[nowPage]][0].cssArr['left'] = '0';
             [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
 
             //防止动画
@@ -181,12 +267,14 @@ var touchPPT = function ( PPTarr ) {
             //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
+            [orderArr[nowPage]][0].cssArr['left'] = '0';
             self.instantiationCss(orderArr[nowPage]);
             nowPage++;
 
             //展现新的页面.
             [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
+            [orderArr[nowPage]][0].cssArr['left'] = '0';
 
             //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
@@ -199,6 +287,7 @@ var touchPPT = function ( PPTarr ) {
 
             //回到原来的状态
             [orderArr[nowPage]][0].cssArr['top'] = '0';
+            [orderArr[nowPage]][0].cssArr['left'] = '0';
             self.instantiationCss(orderArr[nowPage]);
         }
     };
