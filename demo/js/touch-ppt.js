@@ -41,7 +41,6 @@ var touchPPT = function ( PPTarr ) {
         D.getElementsByTagName('body')[0].addEventListener('touchstart',function ( e ) {
 
             e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
-
             _x = e.touches[0].clientX;
             _y = e.touches[0].clientY;
         });
@@ -51,19 +50,53 @@ var touchPPT = function ( PPTarr ) {
 
             e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
             if( nowPage == 0 ) {
+
+                //当第一页时只允许下一页
                 if( (e.touches[0].clientY - _y) < 0) {
                     [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+
+                    //下一个场景的切换时的状态
+                    [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
+                    [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
+                    [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                    self.instantiationCss(orderArr[nowPage + 1]);
                 }
             } else if ( nowPage == (orderArr.length - 1) ) {
+
+                //当最后一页时只允许上一页
                 if( ( _y - e.touches[0].clientY) < 0 ) {
                     [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                    //上一个场景的切换时的状态
+                    [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
+                    [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
+                    [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                    self.instantiationCss(orderArr[nowPage - 1]);
+
                 }
             } else {
+                console.log('aa');
                 [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+
+                //下一个场景的切换时的状态
+                [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
+                [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
+                [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+
+
+                //上一个场景的切换时的状态
+                [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
+                [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
+                [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+
+                self.instantiationCss(orderArr[nowPage + 1]);
+                self.instantiationCss(orderArr[nowPage - 1]);
+                console.log([orderArr[nowPage - 1]][0].cssArr);
+
 
             }
 
             self.instantiationCss(orderArr[nowPage]);
+
         });
 
         //监听触摸离开
@@ -86,7 +119,18 @@ var touchPPT = function ( PPTarr ) {
 
                 //没有切换页面
                 [orderArr[nowPage]][0].cssArr['top'] = '0';
+                if( nowPage != 0 ) {
+                    [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'hidden';
+                    [orderArr[nowPage - 1]][0].cssArr['display'] = 'none';
+                    self.instantiationCss(orderArr[nowPage - 1]);
 
+                }
+
+                if ( nowPage != (orderArr.length - 1) ) {
+                    [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'hidden';
+                    [orderArr[nowPage + 1]][0].cssArr['display'] = 'none';
+                    self.instantiationCss(orderArr[nowPage + 1]);
+                }
                 self.instantiationCss(orderArr[nowPage]);
             }
         });
@@ -100,7 +144,9 @@ var touchPPT = function ( PPTarr ) {
         if ( nowPage > 0 ){
 
             //当前页面隐藏
-            [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
+            [orderArr[nowPage]][0].cssArr['visibility'] = 'hidden';
+
+            //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             self.instantiationCss(orderArr[nowPage]);
@@ -108,7 +154,10 @@ var touchPPT = function ( PPTarr ) {
             nowPage--;
 
             //展现新的页面
+            [orderArr[nowPage]][0].cssArr['top'] = '0';
             [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
+
+            //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
             self.instantiationCss(orderArr[nowPage]);
 
@@ -130,7 +179,9 @@ var touchPPT = function ( PPTarr ) {
         //判断是否到达最大页数
         if ( nowPage != (orderArr.length - 1) ){
             //当前页面隐藏
-            [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
+            [orderArr[nowPage]][0].cssArr['visibility'] = 'hidden';
+
+            //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             self.instantiationCss(orderArr[nowPage]);
@@ -138,6 +189,9 @@ var touchPPT = function ( PPTarr ) {
 
             //展现新的页面.
             [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
+            [orderArr[nowPage]][0].cssArr['top'] = '0';
+
+            //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
             self.instantiationCss(orderArr[nowPage]);
 
