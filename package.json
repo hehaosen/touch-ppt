@@ -1,6 +1,6 @@
 {
   "name": "touch-ppt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "一款无任何依赖的移动端ppt框架",
   "main": "index.js",
   "scripts": {
