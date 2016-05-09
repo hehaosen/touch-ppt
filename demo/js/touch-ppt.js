@@ -17,18 +17,18 @@ var touchPPT = function ( PPTarr ) {
         film = {};//动画顺序
 
     //初始化设备信息
-    var DW = D.body.clientWidth,//设备可见宽度
-        DH = D.body.clientHeight;//设备可见高度
-
+    var DW,//设备可见宽度
+        DH;//设备可见高度
     //选择节点
     this.dom = function ( _name ) {
-
         return D.querySelector( _name );
     };
 
     //初始化我们需要的Css
     this.initializeCss = function () {
-        D.getElementsByTagName('body')[0].style.cssText = 'overflow:hidden';
+        D.getElementsByTagName('body')[0].style.cssText = 'overflow:hidden;display:block;visibility:visible';
+        DW = D.body.clientWidth;//设备可见宽度
+        DH = D.body.clientHeight;//设备可见高度
     };
 
     //判断触摸屏幕监听
@@ -74,7 +74,7 @@ var touchPPT = function ( PPTarr ) {
 
                 }
             } else {
-                console.log('aa');
+
                 [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
 
                 //下一个场景的切换时的状态
@@ -90,9 +90,6 @@ var touchPPT = function ( PPTarr ) {
 
                 self.instantiationCss(orderArr[nowPage + 1]);
                 self.instantiationCss(orderArr[nowPage - 1]);
-                console.log([orderArr[nowPage - 1]][0].cssArr);
-
-
             }
 
             self.instantiationCss(orderArr[nowPage]);
