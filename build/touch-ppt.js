@@ -58,11 +58,14 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     //当第一页时只允许下一页
                     if( (e.touches[0].clientY - _y) < 0) {
                         [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                        [orderArr[nowPage]][0].cssArr['transition'] = '';
 
                         //下一个场景的切换时的状态
                         [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
                         [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
                         [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                        [orderArr[nowPage + 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage + 1]);
                     }
                 } else if ( nowPage == (orderArr.length - 1) ) {
@@ -70,27 +73,36 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     //当最后一页时只允许上一页
                     if( ( _y - e.touches[0].clientY) < 0 ) {
                         [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                        [orderArr[nowPage]][0].cssArr['transition'] = '';
+
                         //上一个场景的切换时的状态
                         [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
                         [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                         [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                        [orderArr[nowPage - 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage - 1]);
 
                     }
                 } else {
 
                     [orderArr[nowPage]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + 'px';
+                    [orderArr[nowPage]][0].cssArr['transition'] = '';
 
                     //下一个场景的切换时的状态
                     [orderArr[nowPage + 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) + DH + 'px';
                     [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                    [orderArr[nowPage + 1]][0].cssArr['transition'] = '';
+
 
 
                     //上一个场景的切换时的状态
                     [orderArr[nowPage - 1]][0].cssArr['top'] = -(_y - e.touches[0].clientY) - DH + 'px';
                     [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                    [orderArr[nowPage - 1]][0].cssArr['transition'] = '';
+
 
                     self.instantiationCss(orderArr[nowPage + 1]);
                     self.instantiationCss(orderArr[nowPage - 1]);
@@ -104,11 +116,14 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     //当第一页时只允许下一页
                     if( (e.touches[0].clientX - _x) < 0) {
                         [orderArr[nowPage]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + 'px';
+                        [orderArr[nowPage]][0].cssArr['transition'] = '';
 
                         //下一个场景的切换时的状态
                         [orderArr[nowPage + 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + DW + 'px';
                         [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
                         [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                        [orderArr[nowPage + 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage + 1]);
                     }
                 } else if ( nowPage == (orderArr.length - 1) ) {
@@ -116,27 +131,35 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     //当最后一页时只允许上一页
                     if( ( _x - e.touches[0].clientX) < 0 ) {
                         [orderArr[nowPage]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + 'px';
+                        [orderArr[nowPage]][0].cssArr['transition'] = '';
+
                         //上一个场景的切换时的状态
                         [orderArr[nowPage - 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) - DW + 'px';
                         [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                         [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                        [orderArr[nowPage - 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage - 1]);
 
                     }
                 } else {
 
                     [orderArr[nowPage]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + 'px';
+                    [orderArr[nowPage]][0].cssArr['transition'] = '';
 
                     //下一个场景的切换时的状态
                     [orderArr[nowPage + 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + DW + 'px';
                     [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
+                    [orderArr[nowPage + 1]][0].cssArr['transition'] = '';
 
 
                     //上一个场景的切换时的状态
                     [orderArr[nowPage - 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) - DW + 'px';
                     [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
+                    [orderArr[nowPage - 1]][0].cssArr['transition'] = '';
+
 
                     self.instantiationCss(orderArr[nowPage + 1]);
                     self.instantiationCss(orderArr[nowPage - 1]);
@@ -171,6 +194,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     if( nowPage != 0 ) {
                         [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'hidden';
                         [orderArr[nowPage - 1]][0].cssArr['display'] = 'none';
+                        [orderArr[nowPage - 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage - 1]);
 
                     }
@@ -178,6 +203,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     if ( nowPage != (orderArr.length - 1) ) {
                         [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'hidden';
                         [orderArr[nowPage + 1]][0].cssArr['display'] = 'none';
+                        [orderArr[nowPage + 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage + 1]);
                     }
                     self.instantiationCss(orderArr[nowPage]);
@@ -203,6 +230,7 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     if( nowPage != 0 ) {
                         [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'hidden';
                         [orderArr[nowPage - 1]][0].cssArr['display'] = 'none';
+                        [orderArr[nowPage - 1]][0].cssArr['transition'] = '';
                         self.instantiationCss(orderArr[nowPage - 1]);
 
                     }
@@ -210,6 +238,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     if ( nowPage != (orderArr.length - 1) ) {
                         [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'hidden';
                         [orderArr[nowPage + 1]][0].cssArr['display'] = 'none';
+                        [orderArr[nowPage + 1]][0].cssArr['transition'] = '';
+
                         self.instantiationCss(orderArr[nowPage + 1]);
                     }
                     self.instantiationCss(orderArr[nowPage]);
@@ -233,6 +263,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             [orderArr[nowPage]][0].cssArr['left'] = '0';
+            [orderArr[nowPage]][0].cssArr['transition'] = 'all 0.5s ease';
+
             self.instantiationCss(orderArr[nowPage]);
 
             nowPage--;
@@ -241,6 +273,7 @@ var touchPPT = function ( PPTarr ,isVertical) {
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             [orderArr[nowPage]][0].cssArr['left'] = '0';
             [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
+            [orderArr[nowPage]][0].cssArr['transition'] = 'all 0.5s ease';
 
             //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
@@ -270,6 +303,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
             [orderArr[nowPage]][0].cssArr['display'] = 'none';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             [orderArr[nowPage]][0].cssArr['left'] = '0';
+            [orderArr[nowPage]][0].cssArr['transition'] = 'all 0.5s ease';
+
             self.instantiationCss(orderArr[nowPage]);
             nowPage++;
 
@@ -277,6 +312,7 @@ var touchPPT = function ( PPTarr ,isVertical) {
             [orderArr[nowPage]][0].cssArr['visibility'] = 'visible';
             [orderArr[nowPage]][0].cssArr['top'] = '0';
             [orderArr[nowPage]][0].cssArr['left'] = '0';
+            [orderArr[nowPage]][0].cssArr['transition'] = 'all 0.5s ease';
 
             //防止动画
             [orderArr[nowPage]][0].cssArr['display'] = 'block';
