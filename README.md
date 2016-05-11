@@ -28,11 +28,11 @@ touchPPT = new touchPPT({
     '.page2':{
         '.p2_no1':{}
     }
-})
+},false)<-是否是垂直播放,不填写就是垂直播放
 </script>
 ```
 
-
+touchPPT(布景数组,是否是垂直);
 #type动效说明
 
 动画效果可以叠加用【空格】分割  例:join-bottom join-left  右下角飞入  join-top join-hiding 从上渐入</br></br>

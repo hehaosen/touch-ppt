@@ -1,4 +1,4 @@
-/*!
+/*
  * 无依赖 轻量级 移动端ppt展现 v0.0.1
  * Date: 2016-4-22
  * author:大力神
@@ -16,7 +16,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
         actors = [],//演员组属性
         film = {};//动画顺序
 
-    isVertical  = isVertical ? true : false ;//是否是垂直滑动播放的
+    isVertical = isVertical + '' == 'undefined' ? true : isVertical;
+
     //初始化设备信息
     var DW,//设备可见宽度
         DH;//设备可见高度
@@ -50,7 +51,8 @@ var touchPPT = function ( PPTarr ,isVertical) {
         D.getElementsByTagName('body')[0].addEventListener('touchmove',function ( e ) {
 
             e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
-            if ( isVertical ) {//是否是垂直播放
+            if ( isVertical ) {
+                //垂直播放
                 if( nowPage == 0 ) {
 
                     //当第一页时只允许下一页
@@ -113,9 +115,9 @@ var touchPPT = function ( PPTarr ,isVertical) {
 
                     //当最后一页时只允许上一页
                     if( ( _x - e.touches[0].clientX) < 0 ) {
-                        [orderArr[nowPage]][0].cssArr['left'] = -(_y - e.touches[0].clientX) + 'px';
+                        [orderArr[nowPage]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + 'px';
                         //上一个场景的切换时的状态
-                        [orderArr[nowPage - 1]][0].cssArr['left'] = -(_y - e.touches[0].clientX) - DW + 'px';
+                        [orderArr[nowPage - 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) - DW + 'px';
                         [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                         [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
                         self.instantiationCss(orderArr[nowPage - 1]);
@@ -123,16 +125,16 @@ var touchPPT = function ( PPTarr ,isVertical) {
                     }
                 } else {
 
-                    [orderArr[nowPage]][0].cssArr['left'] = -(_y - e.touches[0].clientX) + 'px';
+                    [orderArr[nowPage]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + 'px';
 
                     //下一个场景的切换时的状态
-                    [orderArr[nowPage + 1]][0].cssArr['left'] = -(_y - e.touches[0].clientX) + DW + 'px';
+                    [orderArr[nowPage + 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) + DW + 'px';
                     [orderArr[nowPage + 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage + 1]][0].cssArr['display'] = 'block';
 
 
                     //上一个场景的切换时的状态
-                    [orderArr[nowPage - 1]][0].cssArr['left'] = -(_y - e.touches[0].clientX) - DW + 'px';
+                    [orderArr[nowPage - 1]][0].cssArr['left'] = -(_x - e.touches[0].clientX) - DW + 'px';
                     [orderArr[nowPage - 1]][0].cssArr['visibility'] = 'visible';
                     [orderArr[nowPage - 1]][0].cssArr['display'] = 'block';
 
