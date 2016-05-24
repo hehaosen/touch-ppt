@@ -20,7 +20,7 @@ touchPPT = new touchPPT({
             route: 10 //<--时间轴 0.1秒为一个单位  10 = 等待1秒执行动画
         },
         '.p1_no2':{
-            type:'bottom left',
+            type:'join-bottom join-left',
             speed: 2000,
             route: 20
         }
