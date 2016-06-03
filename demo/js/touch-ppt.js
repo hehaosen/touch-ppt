@@ -1,5 +1,5 @@
 /*
- * 无依赖 轻量级 移动端ppt展现 v0.0.1
+ * 无依赖 轻量级 移动端ppt展现 v0.1.3
  * Date: 2016-4-22
  * author:大力神
  * http://www.github.com/hehaosen
